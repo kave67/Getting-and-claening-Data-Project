@@ -9,7 +9,9 @@ output: html_document
 This cookbook contains the deatils about the variables, data and transformation on the data appled for this assignment.
 
 ### Source 
-Data are fetched from the link provied in the course site. The entire data resides in the UCI Machine learning Repository
+Data are fetched from the link provied in the course site. The entire data resides in the UCI Machine learning Repository. The given url:
+( https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+ 
 
 ### Dataset Information
 The dataset is created involvng 30 persons in the age group of 19 to 48 years and observes the six actvities performed by these indivduals with wearable computing devices/apps within smart devices such as smartphone( only smartphones in this study). The considered six activites are WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING.  the observed data in this study are based on  3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz.
@@ -24,29 +26,41 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
  3.A 561-feature vector with time and frequency domain variables
  4.Its activity label
  5.An identifier of the subject who carried out the experiment
+
+### Information on r script- runanalysis
+
+   The instructions are :
+
+##### 1.  Merge the training and the test sets to create one data set.
+
+The following text files were imported and merged. Column names were assigned at the time each file was imported and prior to merge. Files were imported individually and applicable files were then merged into sets, first all files in the TRAINING set (_train.txt) then all files in the TEST set (_test.txt). This was done prior to merging the two sets into one larger data set. The features and activity_labels files had column names assigned but were not merged and will be used later.
  
- ###
+** Text files imported **
+ 1.'features.txt'
+ 2. 'activity_labels.txt'
+ 3. 'subject_train.txt'
+ 4. 'x_train.txt'
+ 5. 'y_train.txt'
+ 6. 'subject_test.txt'
+ 7. 'x_test.txt'
+ 8. 'y_test.txt'
+
+#### Extracts only the measurements on the mean and standard deviation for each measurement.
+ 
+ A logical vector was created identifying TRUE for the ID, mean & stdev columns and FALSE for other values. Merged data was then subsetted to only keep the relevant columns
+#### Uses descriptive activity names to name the activities in the data set
+
+ 'activity_labels.txt' was merged with the subsetted data to add descriptive activity names to merged and subsetted data set. Values in 'activityId' column were then replaced with the matching values from the 'activityType' column in order to make the data easier to read
+ 
+#### Appropriately labels the data set with descriptive variable names.
+  
+  Used the 'gsub' function to clean up the column names in merged & subsetted data set. 'activityType' column removed in order to tidy data further.
+
+#### From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+  New table was created which contains average for each variable for each activity and subject.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
